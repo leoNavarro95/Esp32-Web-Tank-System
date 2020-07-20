@@ -20,7 +20,22 @@
                                 <v-list-item-subtitle>Configure los parámetros de la wifi del dispositivo</v-list-item-subtitle>
                             </v-list-item-content>
                         </v-list-item>
-                        
+
+                    <!-- ip form validator -->
+                    <v-form ref="form" v-model="form" class="pa-2 pt-4">
+                        <v-text-field
+                            v-model="ip"
+                            :rules="[rules.ipCheck(ip)]"
+                            filled
+                            color="deep-purple"
+                            label="IP Address"
+                            style="min-height: 96px"
+                            type="text"
+                            prepend-icon="fas fa-rss-square"
+                        >
+                        </v-text-field>
+                    </v-form>
+
                     <v-form ref="form" v-model="form" class="pa-2 pt-4">
                         <v-text-field
                             v-model="ssid"
@@ -137,6 +152,7 @@ export default {
             dialog: false,
             password: undefined, passlen: 8,
             ssid: undefined, ssidlen: 4,
+            ip:undefined,
             form: false,
             passObj:{
                 icono: 'fas fa-eye', activo: false, tipo: 'password'
@@ -150,6 +166,16 @@ export default {
                 },
                 length(len,v){
                     if((v || '').length >= len){return true;}else{return 'Se requieren, al menos '+len+' carácteres'}
+                },
+                ipCheck(ip_address){
+                    var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+
+                   if((ip_address || '').match(ipformat)){
+                        return true;
+                    }
+                    else{
+                        return 'Dirección ip erronea';
+                    }
                 }
         },
         }

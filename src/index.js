@@ -7,8 +7,8 @@ import store from './store'
 import vuetify from '@/plugins/vuetify' // path to vuetify export
 
 import VueNativeSock from 'vue-native-websocket';
-Vue.use(VueNativeSock, "ws://" + location.hostname + "/ws", {
-// Vue.use(VueNativeSock, "ws://192.168.4.1/ws", {
+// Vue.use(VueNativeSock, "ws://" + location.hostname + "/ws", {
+Vue.use(VueNativeSock, "ws://192.168.4.1/ws", {
   store: store,
   protocol: 'arduino',
   format: 'json',
