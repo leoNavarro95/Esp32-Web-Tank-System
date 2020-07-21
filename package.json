@@ -1,7 +1,7 @@
 {
-  "name": "baseweb-for-espX",
+  "name": "Esp32-Web-Tank-System",
   "version": "1.0.0",
-  "description": "Base for use poi to generate a web interface for espX",
+  "description": "This is a project that cover the front-end (based Web vue.js) part of an automatic control level system for deposits of water or any liquid",
   "scripts": {
     "dev": "poi",
     "build": "poi build",
@@ -13,9 +13,8 @@
     "process": "npm run gen && node ./node_modules/gulp/bin/gulp.js"
   },
   "author": {
-    "name": "Carlos Henry Cespedes",
-    "email": "chenry@qva2world.com",
-    "url": "https://www.qva2world.com"
+    "name": "Leonardo Navarro Noa",
+    "email": "potty3800@gmail.com",
   },
   "license": "GPL-2.0",
   "devDependencies": {
