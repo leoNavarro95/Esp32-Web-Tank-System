@@ -5,7 +5,7 @@
 ## Software requirements:
 
 - Have installed Vue.js
--... in development
+- ... in development
 
 ## Installation process
 
