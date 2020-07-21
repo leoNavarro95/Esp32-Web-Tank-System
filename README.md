@@ -15,12 +15,3 @@
 - to start in development mode npm run dev
 - to generate the bundle 'npm run process'
 
-### EVERYBODY
-
-- [ ] Improve this help with more time.
-- [x] Add sample components for the main projects of the group
-- [ ] Add implementation for websocket use
-- [ ] Add option to use an api rest in esp
-- [ ] Standardize and be able to pretty the code
-- [ ] Add custom css to improve final file size
-- [ ] .....
