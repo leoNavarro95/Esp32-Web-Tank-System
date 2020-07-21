@@ -1,51 +1,63 @@
 <template>
-    <div>
-        <!-- SnakBar -->
-        <v-snackbar v-model="snackbar" absolute top right :color="snackBarObj.color">
-        <span>{{snackBarObj.mensaje}}</span>
-        <v-icon dark>{{snackBarObj.icono}}</v-icon>
-        </v-snackbar>
+  <div>
+    <!-- SnakBar -->
+    <v-snackbar v-model="snackbar" absolute top right :color="snackBarObj.color">
+      <span>{{snackBarObj.mensaje}}</span>
+      <v-icon dark>{{snackBarObj.icono}}</v-icon>
+    </v-snackbar>
 
-        <v-layout mt-4 column align-center>
-        <v-hover>
-            <template class="align-center" v-slot="{ hover }">
-            <v-card class="mx-3" :elevation="hover ? 24 : 6">
-                <v-list-item three-line>
-                <v-list-item-content>
-                    <!-- <div class="overline mb-1">Configuración</div> -->
-                    <v-list-item-title class="headline mb-1">
-                    <v-icon>fas fa-wifi</v-icon>WiFi
-                    </v-list-item-title>
-                    <v-list-item-subtitle>Configure los parámetros de la wifi del dispositivo</v-list-item-subtitle>
-                </v-list-item-content>
-                </v-list-item>
+    <v-layout mt-4 column align-center>
+      <v-hover>
+        <template class="align-center" v-slot="{ hover }">
+          <v-card class="mx-3" :elevation="hover ? 24 : 6">
+            <v-list-item three-line>
+              <v-list-item-content>
+                <!-- <div class="overline mb-1">Configuración</div> -->
+                <v-list-item-title class="headline mb-1">
+                  <v-icon>fas fa-wifi</v-icon>WiFi
+                </v-list-item-title>
+                <v-list-item-subtitle>Configure los parámetros de la wifi del dispositivo</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
 
-                <v-content class="pa-0">
-                <div id="wifi-mode">
-                    <!-- Select WIFI Mode -->
-                    <v-row align="center" class="px-5 py-0 ma-0">
-                    <v-col cols="5" class="pa-0">
-                        <p class="mb-0">Select Wifi Mode</p>
-                    </v-col>
-                    <v-col cols="7" class="pa-0">
-                        <v-switch color="deep-purple" v-model="WifiApState" :label="networkType"></v-switch>
-                    </v-col>
-                    </v-row>
-                </div>
+            <v-content class="pa-0">
+              <div id="option-select">
+                <!-- Select WIFI Mode -->
+                <v-row align="center" class="px-5 py-0 ma-0">
+                  <v-col cols="5" class="pa-0">
+                    <p class="mb-0">Select Wifi Mode</p>
+                  </v-col>
+                  <v-col cols="7" class="pa-0">
+                    <v-switch color="deep-purple" v-model="WifiApState" :label="networkType"></v-switch>
+                  </v-col>
+                </v-row>
+              </div>
+              <div id="option-select">
+                <!-- Select WIFI Mode -->
+                <v-row align="center" class="px-5 py-0 ma-0">
+                  <v-col cols="5" class="pa-0">
+                    <p class="mb-0">Static IP?</p>
+                  </v-col>
+                  <v-col cols="7" class="pa-0">
+                    <!-- off-icon="fas fa-square" on-icon="fas fa-check-square" -->
+                    <v-checkbox v-model="StaticIpEnabled"></v-checkbox> 
+                  </v-col>
+                </v-row>
+              </div>
 
-                <!-- ip form validator -->
-                <v-form ref="form" v-model="form" class="pa-2 pt-4">
-                    <v-text-field
-                    v-model="ip"
-                    :rules="[rules.ipCheck(ip)]"
-                    filled
-                    color="deep-purple"
-                    label="IP Address"
-                    style="min-height: 96px"
-                    type="text"
-                    prepend-icon="fas fa-rss-square"
-                    ></v-text-field>
-                </v-form>
+              <!-- ip form validator -->
+              <v-form ref="form" v-model="form" class="pa-2 pt-4">
+                <v-text-field
+                  v-model="ip"
+                  :rules="[rules.ipCheck(ip),rules.required]"
+                  filled
+                  color="deep-purple"
+                  label="IP Address"
+                  style="min-height: 96px"
+                  type="text"
+                  prepend-icon="fas fa-rss-square"
+                ></v-text-field>
+              </v-form>
             </v-content>
 
             <v-form ref="form" v-model="form" class="pa-2 pt-4">
@@ -161,6 +173,7 @@ export default {
       ssid: undefined,
       ssidlen: 4,
       ip: undefined,
+      StaticIpEnabled: false,
       form: false,
       WifiApState: false,
       passObj: {
@@ -213,7 +226,8 @@ export default {
       if (
         this.rules.password(this.password) === true &&
         this.rules.length(this.passlen, this.password) === true &&
-        this.rules.length(this.ssidlen, this.ssid) === true
+        this.rules.length(this.ssidlen, this.ssid) === true &&
+        this.rules.ipCheck(this.ip) === true
       ) {
         valido = true;
       } else {
@@ -229,19 +243,19 @@ export default {
 .v-card .v-icon {
   color: rgb(32, 32, 73);
 }
+
 .v-card__actions {
-  background-color: rgb(63, 81, 181);
   color: white;
 }
 
-#wifi-mode {
+#option-select {
   width: 90%;
   margin-left: 15px;
   background-color: rgb(236, 236, 236);
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
 }
-#wifi-mode:hover {
+#option-select:hover {
   background-color: rgb(218, 214, 214);
   border-bottom-style: solid;
   border-bottom-color: grey;
